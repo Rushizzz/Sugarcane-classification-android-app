@@ -18,6 +18,9 @@ import com.example.myapplication.ui.theme.MyApplicationTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        var labels: List<String> = application.assets.open("labels.txt").bufferedReader().readLines()
+
         setContent {
             MyApplicationTheme {
 
@@ -25,7 +28,7 @@ class MainActivity : ComponentActivity() {
                 NavHost(navController =controller, startDestination = "Home"){
 
                     composable("Home"){
-                            HomeScreen()
+                            HomeScreen(controller, labels)
                     }
 
                     composable("Detail"){
