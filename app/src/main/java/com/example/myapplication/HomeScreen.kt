@@ -1,6 +1,5 @@
 package com.example.myapplication
 
-import android.app.Instrumentation.ActivityResult
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -8,14 +7,11 @@ import android.graphics.ImageDecoder
 import android.os.Build
 import android.provider.MediaStore
 import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.launch
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -39,11 +35,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.PaintingStyle
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -53,7 +47,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.ui.theme.MyApplicationTheme
 
 @Composable
-fun HomeScreen(navcontroller:NavController) {
+fun HomeScreen(controller: NavController) {
     Box (modifier = Modifier.fillMaxSize()) {
         Image(
             painter = painterResource(id = R.drawable.bg),
@@ -66,6 +60,10 @@ fun HomeScreen(navcontroller:NavController) {
         val img: Bitmap = BitmapFactory.decodeResource(Resources.getSystem(), android.R.drawable.ic_menu_report_image)
         val bitmap = remember {
             mutableStateOf(img)
+        }
+
+        fun PredictionScreen(bitmap: Bitmap) {
+            controller.navigate("Prediction")
         }
 
         val launcher = rememberLauncherForActivityResult(
@@ -253,6 +251,6 @@ fun HomeScreen(navcontroller:NavController) {
 fun homeScreenPreview() {
     MyApplicationTheme {
         val controller = rememberNavController()
-        HomeScreen(navcontroller = controller)
+        HomeScreen(controller)
     }
 }
