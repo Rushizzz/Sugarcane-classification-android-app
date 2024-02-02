@@ -131,24 +131,10 @@ fun HomeScreen(controller: NavController, labels: List<String>) {
         val launchImage = rememberLauncherForActivityResult(
             contract = ActivityResultContracts.GetContent()
         ) {
-            if (Build.VERSION.SDK_INT < 28) {
                 bitmap.value = MediaStore.Images.Media.getBitmap(Context.contentResolver, it)
                 val temp = prediction(bitmap.value)
                 disease = temp.toString()
                 predScreen = false
-            }
-            else{
-                val source = it?.let { it1 ->
-                    ImageDecoder.createSource(Context.contentResolver, it1)
-
-                }
-                bitmap.value = source?.let { it1 -> 
-                    ImageDecoder.decodeBitmap((it1))
-                }!!
-                val temp = prediction(bitmap.value)
-                disease = temp.toString()
-                predScreen = false
-            }
         }
 
 
@@ -280,7 +266,7 @@ fun HomeScreen(controller: NavController, labels: List<String>) {
                     )
                 }
                 Button(
-                    onClick = { /*TODO*/ },
+                    onClick = { controller.navigate("Home") },
                     modifier = Modifier
                         .align(Alignment.Center)
                         .padding(top = 300.dp)
